@@ -79,6 +79,8 @@ def get_users():
 @app.route('/users/<int:user_id>/favorites', methods=['GET'])
 def get_favorites(user_id):
     user = User.query.get(user_id)
+    if user is None: 
+         return jsonify({"Invalid user ID"}) 
     return jsonify(user.serialize()['favorites']), 200
 
 @app.route('/users/<int:user_id>/favorites/characters/<int:character_id>', methods=['POST', 'DELETE'])
